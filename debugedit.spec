@@ -1,11 +1,11 @@
 Name:           debugedit
-Version:        4.14.1
-Release:        78
+Version:        4.14.2.1
+Release:        79
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
 Group:          base
-Source0:        http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.1.tar.bz2
+Source0:        http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 
 
 BuildRequires:  bzip2-dev
