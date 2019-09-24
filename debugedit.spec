@@ -1,6 +1,6 @@
 Name:           debugedit
 Version:        4.14.2.1
-Release:        84
+Release:        85
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -28,7 +28,7 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  libtool autoconf m4 gettext-dev autoconf pkg-config-dev
 BuildRequires:	bison flex
-BuildRequires:  python3-dev python-dev
+BuildRequires:  python3-dev
 
 Requires: zip unzip debugedit-bin
 
