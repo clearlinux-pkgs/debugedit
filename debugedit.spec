@@ -1,6 +1,6 @@
 Name:           debugedit
 Version:        4.14.2.1
-Release:        91
+Release:        92
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
