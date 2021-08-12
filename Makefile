@@ -1,5 +1,5 @@
 PKG_NAME := debugedit
-URL = https://sourceware.org/ftp/debugedit/0.3/debugedit-0.3.tar.xz
+URL = https://sourceware.org/ftp/debugedit/5.0/debugedit-5.0.tar.xz
 ARCHIVES = 
 
 include ../common/Makefile.common

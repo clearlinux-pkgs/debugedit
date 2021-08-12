@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xFC57E3CCACD99A78 (mjw@gnu.org)
 #
 Name     : debugedit
-Version  : 0.3
-Release  : 93
-URL      : https://sourceware.org/ftp/debugedit/0.3/debugedit-0.3.tar.xz
-Source0  : https://sourceware.org/ftp/debugedit/0.3/debugedit-0.3.tar.xz
-Source1  : https://sourceware.org/ftp/debugedit/0.3/debugedit-0.3.tar.xz.sig
+Version  : 5.0
+Release  : 94
+URL      : https://sourceware.org/ftp/debugedit/5.0/debugedit-5.0.tar.xz
+Source0  : https://sourceware.org/ftp/debugedit/5.0/debugedit-5.0.tar.xz
+Source1  : https://sourceware.org/ftp/debugedit/5.0/debugedit-5.0.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 GPL-3.0 LGPL-2.1
@@ -53,8 +53,8 @@ man components for the debugedit package.
 
 
 %prep
-%setup -q -n debugedit-0.3
-cd %{_builddir}/debugedit-0.3
+%setup -q -n debugedit-5.0
+cd %{_builddir}/debugedit-5.0
 
 %build
 ## build_prepend content
@@ -64,7 +64,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1624317974
+export SOURCE_DATE_EPOCH=1628798692
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -78,15 +78,15 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make %{?_smp_mflags} check
+make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1624317974
+export SOURCE_DATE_EPOCH=1628798692
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/debugedit
-cp %{_builddir}/debugedit-0.3/COPYING %{buildroot}/usr/share/package-licenses/debugedit/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1
-cp %{_builddir}/debugedit-0.3/COPYING.LIB %{buildroot}/usr/share/package-licenses/debugedit/9a1929f4700d2407c70b507b3b2aaf6226a9543c
-cp %{_builddir}/debugedit-0.3/COPYING3 %{buildroot}/usr/share/package-licenses/debugedit/8624bcdae55baeef00cd11d5dfcfa60f68710a02
+cp %{_builddir}/debugedit-5.0/COPYING %{buildroot}/usr/share/package-licenses/debugedit/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1
+cp %{_builddir}/debugedit-5.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/debugedit/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/debugedit-5.0/COPYING3 %{buildroot}/usr/share/package-licenses/debugedit/8624bcdae55baeef00cd11d5dfcfa60f68710a02
 %make_install
 
 %files
