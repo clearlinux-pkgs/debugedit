@@ -6,7 +6,7 @@
 #
 Name     : debugedit
 Version  : 5.0
-Release  : 94
+Release  : 95
 URL      : https://sourceware.org/ftp/debugedit/5.0/debugedit-5.0.tar.xz
 Source0  : https://sourceware.org/ftp/debugedit/5.0/debugedit-5.0.tar.xz
 Source1  : https://sourceware.org/ftp/debugedit/5.0/debugedit-5.0.tar.xz.sig
@@ -16,10 +16,17 @@ License  : GPL-2.0 GPL-3.0 LGPL-2.1
 Requires: debugedit-bin = %{version}-%{release}
 Requires: debugedit-license = %{version}-%{release}
 Requires: debugedit-man = %{version}-%{release}
+BuildRequires : help2man
 BuildRequires : pkgconfig(libdw)
 BuildRequires : pkgconfig(libelf)
 BuildRequires : sed
 BuildRequires : util-linux
+Patch1: 0001-Fix-32bit-kernel-builds-by-not-using-eu-strip.patch
+Patch2: 0002-Relocate-debuginfo-to-usr-share-debug.patch
+Patch3: 0003-debuginfo-do-not-strip-static-libraries.patch
+Patch4: 0004-scripts-Don-t-bail-out-when-debugedit-fails.patch
+Patch5: 0005-Don-t-fail-a-build-if-build-id-is-a-duplicate.patch
+Patch6: 0006-preserve-timestamps.patch
 
 %description
 DEBUGEDIT
@@ -55,6 +62,12 @@ man components for the debugedit package.
 %prep
 %setup -q -n debugedit-5.0
 cd %{_builddir}/debugedit-5.0
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
 
 %build
 ## build_prepend content
@@ -64,7 +77,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1628798692
+export SOURCE_DATE_EPOCH=1631342689
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -81,7 +94,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1628798692
+export SOURCE_DATE_EPOCH=1631342689
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/debugedit
 cp %{_builddir}/debugedit-5.0/COPYING %{buildroot}/usr/share/package-licenses/debugedit/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1

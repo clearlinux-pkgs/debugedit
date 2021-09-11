@@ -1,0 +1,29 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Arjan van de Ven <arjan@linux.intel.com>
+Date: Sat, 14 Jan 2017 03:52:55 +0000
+Subject: [PATCH] preserve timestamps
+
+[2021-09-10]: Ported for migration to debugedit 5.0 when updating to rpm
+4.17.0.
+
+Ported-by: Thiago Macieira <thiago.macieira@intel.com>
+Ported-by: Patrick McCarty <patrick.mccarty@intel.com>
+Signed-off-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ scripts/find-debuginfo.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/find-debuginfo.in b/scripts/find-debuginfo.in
+index 8cc45f8..59d91ff 100755
+--- a/scripts/find-debuginfo.in
++++ b/scripts/find-debuginfo.in
+@@ -318,7 +318,7 @@ strip_to_debug()
+   $strip_glibs && case "$(file -bi "$2")" in
+     application/x-sharedlib*) g=-g ;;
+   esac
+-  eu-strip --remove-comment $r $g ${keep_remove_args} -f "$1" "$2" || exit
++  eu-strip -p --remove-comment $r $g ${keep_remove_args} -f "$1" "$2" || exit
+   chmod 444 "$1" || exit
+ }
+ 

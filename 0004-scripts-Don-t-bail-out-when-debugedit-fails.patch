@@ -1,0 +1,35 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ikey Doherty <michael.i.doherty@intel.com>
+Date: Thu, 26 Jun 2014 15:13:32 +0100
+Subject: [PATCH] scripts: Don't bail out when debugedit fails
+
+In certain instances debugedit might just fail, and there is nothing we can
+really do about it due to each individual package altering CFLAGS, LDFLAGs,
+etc. Now we'll just gracefully continue to the next file in the list if
+this happens, and leave the packager to continue with other issues
+if needed.
+
+[2021-09-10]: Ported for migration to debugedit 5.0 when updating to rpm
+4.17.0
+
+Ported-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
+Ported-by: Patrick McCarty <patrick.mccarty@intel.com>
+Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ scripts/find-debuginfo.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/find-debuginfo.in b/scripts/find-debuginfo.in
+index ae7b5ae..feaa61c 100755
+--- a/scripts/find-debuginfo.in
++++ b/scripts/find-debuginfo.in
+@@ -455,7 +455,7 @@ do_file()
+   id=$(${install_dir}/debugedit -b "$debug_base_name" -d "$debug_dest_name" \
+ 			      $no_recompute -i \
+ 			      ${build_id_seed:+--build-id-seed="$build_id_seed"} \
+-			      -l "$SOURCEFILE" "$f") || exit
++			      -l "$SOURCEFILE" "$f") || return
+   if [ -z "$id" ]; then
+     echo >&2 "*** ${strict_error}: No build ID note found in $f"
+     $strict && exit 2

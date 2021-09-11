@@ -1,0 +1,34 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Patrick McCarty <patrick.mccarty@linux.intel.com>
+Date: Mon, 5 May 2014 13:17:57 -0700
+Subject: [PATCH] debuginfo: do not strip static libraries
+
+In the future, we will likely not ship static libraries at all, so do not create
+debuginfo for them. Likewise, we don't want to strip ld.so for valgrind.
+
+[2021-09-10]: Ported for migration to debugedit 5.0 when updating to rpm
+4.17.0
+
+Ported-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
+Ported-by: Patrick McCarty <patrick.mccarty@linux.intel.com>
+Signed-off-by: Patrick McCarty <patrick.mccarty@linux.intel.com>
+---
+ scripts/find-debuginfo.in | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/scripts/find-debuginfo.in b/scripts/find-debuginfo.in
+index f6a52a0..ae7b5ae 100755
+--- a/scripts/find-debuginfo.in
++++ b/scripts/find-debuginfo.in
+@@ -411,9 +411,11 @@ temp=$(mktemp -d ${TMPDIR:-/tmp}/find-debuginfo.XXXXXX)
+ trap 'rm -rf "$temp"' EXIT
+ 
+ # Build a list of unstripped ELF files and their hardlinks
++# (also consider non-static libraries)
+ touch "$temp/primary"
+ find "$RPM_BUILD_ROOT" ! -path "${debugdir}/*.debug" -type f \
+      		     \( -perm -0100 -or -perm -0010 -or -perm -0001 \) \
++		     ! -name "*.a" ! -name "ld-*.so" ! -name "ld-linux-x86-64.so*" \
+ 		     -print | LC_ALL=C sort |
+ file -N -f - | sed -n -e 's/^\(.*\):[ 	]*.*ELF.*, not stripped.*/\1/p' |
+ xargs --no-run-if-empty stat -c '%h %D_%i %n' |
